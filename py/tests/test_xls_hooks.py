@@ -64,7 +64,7 @@ class TestXlsHooks(BaseTestConfig):
             estimated_fee = get_fee_estimate(client, tx_blob)
 
             # Sign Tx
-            prepared_tx = set_hook(
+            signed_tx = set_hook(
                 client,
                 network_id,
                 wallet,
@@ -73,7 +73,7 @@ class TestXlsHooks(BaseTestConfig):
             )
 
             # Submit Tx
-            response = submit_transaction(prepared_tx, client)
+            response = submit_transaction(signed_tx, client)
             cls.assertEqual(response.result['engine_result'], 'tesSUCCESS')
 
 
