@@ -12,6 +12,7 @@ describe("test hook binary", function () {
     const fromSeed = 'ssYZKpUET4ZR5Q88DpYHzjnFsYgFj'
     const client = new Client(WSS_RPC_URL);
     await client.connect();
+    await client.setNetworkID();
     const wallet = Wallet.fromSeed(fromSeed);
 
     // CreateCode
