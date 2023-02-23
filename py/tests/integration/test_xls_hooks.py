@@ -13,7 +13,8 @@ import os
 import binascii
 
 # xrpl
-from xrpl.clients import WebsocketClient, Client
+from xrpl.core.binarycodec import encode
+from xrpl.clients import WebsocketClient
 from xrpl.wallet import Wallet
 from xrpl.transaction import (
     submit_transaction,
@@ -57,14 +58,12 @@ class TestXlsHooks(BaseTestConfig):
             
             # Set Hook
             prepared_tx = prepare_hook(client, network_id, wallet.classic_address, [hook])
-            print(prepared_tx)
             
-            # del prepared_tx.signing_pub_key
-            from xrpl.core.binarycodec import encode
+            # Estimate Fee
             tx_blob = encode(prepared_tx.to_xrpl())
             estimated_fee = get_fee_estimate(client, tx_blob)
 
-            # Set Hook
+            # Sign Tx
             prepared_tx = set_hook(
                 client,
                 network_id,
@@ -72,9 +71,10 @@ class TestXlsHooks(BaseTestConfig):
                 estimated_fee,
                 [hook]
             )
+
+            # Submit Tx
             response = submit_transaction(prepared_tx, client)
             cls.assertEqual(response.result['engine_result'], 'tesSUCCESS')
-            print(ee)
 
 
 
