@@ -1,0 +1,7 @@
+# Ignore Macintosh Desktop Services Store files.
+.DS_Store
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json

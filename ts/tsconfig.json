@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "strictNullChecks": false,
+    "module": "esnext",
+    "target": "es2017",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": false, // For components CamelCase
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "skipDefaultLibCheck": true,
+    "jsx": "preserve",
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.tsx",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+  ],
+  "types": [
+    "typePatches"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "Account": "rsc5vNLRaQHnzRR6N6kgLRW436vACFz6gc",
+  "Fee": "10",
+  "Flags": 9,
+  "LastLedgerSequence": 3803260,
+  "NFTokenTaxon": 0,
+  "Sequence": 3802324,
+  "SigningPubKey": "03EF0252D81CF33C4E8220B13BAEF852AFED7736299FE4A343323629A09AA545B5",
+  "TransactionType": "NFTokenMint",
+  "TransferFee": 0,
+  "TxnSignature": "304402205F25DA985EC5326EEC8EBE4496BFD640ACE3E0BCF6CD5EA0E52B6728DF7BFE20022031FAFA494829C9DD32CBAAD481749C10A1D3578E8EEBDB284E711A9487663445",
+  "URI": "697066733A2F2F516D614374444B5A4656767666756676626479346573745A626851483744586831364354707631686F776D424779",
+  "date": 710031810,
+  "hash": "BC68458BF2BF5986B856B13F7A9C75059EE7C2C050077B565E8ACDFFA140A144",
+  "inLedger": 3803242,
+  "ledger_index": 3803242,
+  "meta": {
+    "AffectedNodes": [
+      {
+        "CreatedNode": {
+          "LedgerEntryType": "NFTokenPage",
+          "LedgerIndex": "1CB1CD2950030037AA75ED0337F907109F60EDF0FFFFFFFFFFFFFFFFFFFFFFFF",
+          "NewFields": {
+            "NFTokens": [
+              {
+                "NFToken": {
+                  "NFTokenID": "000900001CB1CD2950030037AA75ED0337F907109F60EDF00000099B00000000",
+                  "URI": "697066733A2F2F516D614374444B5A4656767666756676626479346573745A626851483744586831364354707631686F776D424779"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "ModifiedNode": {
+          "FinalFields": {
+            "Account": "rsc5vNLRaQHnzRR6N6kgLRW436vACFz6gc",
+            "Balance": "9999999990",
+            "Flags": 0,
+            "MintedNFTokens": 1,
+            "OwnerCount": 1,
+            "Sequence": 3802325
+          },
+          "LedgerEntryType": "AccountRoot",
+          "LedgerIndex": "2035E21B56D80B0802428B2F3DD90CD07A0998FD006DF35A73CD642BF8E2E767",
+          "PreviousFields": {
+            "Balance": "10000000000",
+            "OwnerCount": 0,
+            "Sequence": 3802324
+          }
+        }
+      }
+    ],
+    "TransactionIndex": 0,
+    "TransactionResult": "tesSUCCESS"
+  },
+  "validated": true
+}
