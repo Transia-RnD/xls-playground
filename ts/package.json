@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "sync-binary": "yarn add ~/projects/xrpl-labs/xrpl.js/packages/ripple-binary-codec",
+    "sync-xrpl": "yarn add ~/projects/xrpl-labs/xrpl.js/packages/xrpl",
+    "sync": "yarn run sync-binary && yarn run sync-xrpl",
     "build": "tsc",
+    "sync:build": "yarn run sync && tsc",
     "dev": "ts-node src/index.ts",
-    "test": "yarn run build && jest --detectOpenHandles"
+    "test": "yarn run build && jest --detectOpenHandles",
+    "sync:test": "yarn run sync:build && jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",

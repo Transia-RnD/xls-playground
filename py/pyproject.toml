@@ -11,6 +11,7 @@ PyYAML = "^6.0"
 google-cloud-storage = "^2.7.0"
 google-cloud-core = "^2.3.2"
 xrpl-py = {git = "https://github.com/Transia-RnD/xrpl-py.git"}
+poethepoet = "^0.18.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
@@ -28,3 +29,6 @@ mypy = "^0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+sync = "source .venv/bin/activate && pip3 install ~/projects/xrpl-labs/xrpl-py"
