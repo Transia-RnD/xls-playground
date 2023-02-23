@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "strictNullChecks": false,
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es2017",
     "noImplicitAny": true,
     "sourceMap": true,
@@ -30,6 +30,10 @@
     "noEmit": true,
     "incremental": true,
     "isolatedModules": true
+  },
+  "ts-node": {
+    // Tell ts-node CLI to install the --loader automatically
+      "esm": true
   },
   "include": [
     "src/**/*.ts",

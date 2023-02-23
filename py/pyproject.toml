@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "xrpl-helpers"
+name = "xrpl-playground"
 version = "1.0.2"
 description = ""
 authors = ["Denis Angell <denis@transia.co>"]

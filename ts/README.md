@@ -1,4 +1,4 @@
-# Xrpl.js Playgound
+# XRPL.js Playgound
 
 In XRPL.js
 
@@ -13,4 +13,6 @@ Build Binary Dependency
 Build Main Dependency
 
 `yarn add ~/projects/xrpl-labs/xrpl.js/packages/xrpl`
+
+`ts-node src/index.ts`
 
