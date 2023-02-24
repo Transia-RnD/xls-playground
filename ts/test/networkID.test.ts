@@ -14,7 +14,7 @@ describe("test network id", function () {
     const WSS_RPC_URL = "wss://hooks-testnet-v3.xrpl-labs.com";
     const client = new Client(WSS_RPC_URL);
     await client.connect();
-    await client.setNetworkID();
+    client.networkID = await client.getNetworkID();
     assert.equal(client.networkID, 21338);
     await client.disconnect();
   });
