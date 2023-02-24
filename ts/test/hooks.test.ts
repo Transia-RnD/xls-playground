@@ -1,29 +1,47 @@
-import { assert } from 'chai'
+import { assert } from "chai";
 
-import { Client, Wallet, getFeeEstimateXrp, SetHook, calculateHookOn, TTS, hexNamespace } from 'xrpl';
-import { encode } from 'ripple-binary-codec';
+// XRPL
+// ---------------------------------------------------------------------------
+
+import {
+  Client,
+  Wallet,
+  getFeeEstimateXrp,
+  SetHook,
+  calculateHookOn,
+  TTS,
+  hexNamespace,
+} from "xrpl";
+import { encode } from "ripple-binary-codec";
+
+// INSTALL
+// ---------------------------------------------------------------------------
+// yarn add "https://github.com/Transia-RnD/xrpl.js.git#network-id" --save
 
 const fs = require("fs");
 
 describe("test hook binary", function () {
   it("all", async function () {
-    const WSS_RPC_URL = "wss://hooks-testnet-v3.xrpl-labs.com"
-    const fromAcct = 'rfdxDZK1cW6YBLcbx2BrtQUivjBXe5hqeB'
-    const fromSeed = 'ssYZKpUET4ZR5Q88DpYHzjnFsYgFj'
+    const WSS_RPC_URL = "wss://hooks-testnet-v3.xrpl-labs.com";
+    const fromAcct = "rfdxDZK1cW6YBLcbx2BrtQUivjBXe5hqeB";
+    const fromSeed = "ssYZKpUET4ZR5Q88DpYHzjnFsYgFj";
     const client = new Client(WSS_RPC_URL);
     await client.connect();
     await client.setNetworkID();
     const wallet = Wallet.fromSeed(fromSeed);
 
     // CreateCode
-    const binary = fs.readFileSync('test/fixtures/starter.c.wasm').toString('hex').toUpperCase();
+    const binary = fs
+      .readFileSync("test/fixtures/starter.c.wasm")
+      .toString("hex")
+      .toUpperCase();
 
     // HookOn
-    const invokeOn: Array<keyof TTS> = ['ttACCOUNT_SET']
+    const invokeOn: Array<keyof TTS> = ["ttACCOUNT_SET"];
     const hookOn = calculateHookOn(invokeOn);
 
     // NameSpace
-    const namespace = await hexNamespace('starter');
+    const namespace = await hexNamespace("starter");
 
     // Build Hook
     const hook = {
@@ -32,32 +50,32 @@ describe("test hook binary", function () {
         HookOn: hookOn,
         Flags: 1,
         HookApiVersion: 0,
-        HookNamespace: namespace
-      }
-    }
+        HookNamespace: namespace,
+      },
+    };
 
     // Prepare Hook
     const tx: SetHook = {
-        Account: fromAcct,
-        TransactionType: "SetHook",
-        Hooks: [hook],
-        NetworkID: client.networkID,
+      Account: fromAcct,
+      TransactionType: "SetHook",
+      Hooks: [hook],
+      NetworkID: client.networkID,
     };
     const preparedTx = await client.autofill(tx);
 
     // Estimate Fee
-    const copyTx = { ...preparedTx }
-    copyTx.SigningPubKey = ''
-    const txBlob = encode(copyTx)
-    const netFeeXRP = await getFeeEstimateXrp(client, txBlob)
-    preparedTx.Fee = netFeeXRP
-    
+    const copyTx = { ...preparedTx };
+    copyTx.SigningPubKey = "";
+    const txBlob = encode(copyTx);
+    const netFeeXRP = await getFeeEstimateXrp(client, txBlob);
+    preparedTx.Fee = netFeeXRP;
+
     // Sign Tx
     const signedTx = wallet.sign(preparedTx).tx_blob;
 
     // Submit Tx
     const response = await client.submit(signedTx);
-    assert.equal(response.result.engine_result, 'tesSUCCESS')
-    await client.disconnect()
+    assert.equal(response.result.engine_result, "tesSUCCESS");
+    await client.disconnect();
   });
 });
