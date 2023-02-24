@@ -21,7 +21,7 @@ from xrpl.transaction import (
     submit_transaction,
     sign,
 )
-from xrpl.ledger import get_fee_estimate
+from xrpl.ledger import get_fee_estimate, get_network_id
 from xrpl.utils import calculate_hook_on, hex_namespace
 
 from xls_playground.models.hooks import build_hook, prepare_hook, set_hook
@@ -37,9 +37,7 @@ class TestXlsHooks(BaseTestConfig):
     def test_xls_hooks(cls):
         w3 = WebsocketClient(cls.WSS_RPC_URL)
         with w3 as client:
-            network_id: int = 21338
-            client.send
-
+            client.network_id = get_network_id(client)
             wallet = Wallet(cls.masterSecret, 0)
 
             # CreateCode
@@ -61,7 +59,7 @@ class TestXlsHooks(BaseTestConfig):
 
             # Set Hook
             prepared_tx = prepare_hook(
-                client, network_id, wallet.classic_address, [hook]
+                client, client.network_id, wallet.classic_address, [hook]
             )
 
             # Estimate Fee
@@ -69,7 +67,9 @@ class TestXlsHooks(BaseTestConfig):
             estimated_fee = get_fee_estimate(client, tx_blob)
 
             # Sign Tx
-            signed_tx = set_hook(client, network_id, wallet, estimated_fee, [hook])
+            signed_tx = set_hook(
+                client, client.network_id, wallet, estimated_fee, [hook]
+            )
 
             # Submit Tx
             response = submit_transaction(signed_tx, client)
