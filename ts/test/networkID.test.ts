@@ -7,7 +7,7 @@ import { Client } from "xrpl";
 
 // INSTALL
 // ----------------------------------------------------------------------------
-// yarn add "https://github.com/Transia-RnD/xrpl.js.git#hooks" --save
+// yarn add "https://github.com/Transia-RnD/xrpl.js.git#network-id" --save
 
 describe("test network id", function () {
   it("all", async function () {

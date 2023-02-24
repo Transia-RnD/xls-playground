@@ -15,8 +15,8 @@ import {
 import { encode } from "ripple-binary-codec";
 
 // INSTALL
-// ---------------------------------------------------------------------------
-// yarn add "https://github.com/Transia-RnD/xrpl.js.git#network-id" --save
+// ----------------------------------------------------------------------------
+// yarn add "https://github.com/Transia-RnD/xrpl.js.git#hooks" --save
 
 const fs = require("fs");
 
