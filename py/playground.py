@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from typing import Dict, Any  # noqa: F401
+import hashlib
 
-from xls_playground.models.hooks import build_hook
+from typing import Any, Dict  # noqa: F401
+
+amendment_name: str = 'URIToken'
+print(hashlib.sha512(amendment_name.encode("utf-8")).digest().hex().upper()[:64])

@@ -1,30 +1,29 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import binascii
+
 # import json
 import logging
-from typing import Dict, Any, List  # noqa: F401
+import os
+from typing import Any, Dict, List  # noqa: F401
+
+from xrpl.clients import WebsocketClient
+
+# xrpl
+from xrpl.core.binarycodec import encode
+from xrpl.ledger import get_fee_estimate, get_network_id
+from xrpl.models import Hook, SetHook
+from xrpl.transaction import safe_sign_and_autofill_transaction, submit_transaction
+from xrpl.utils import calculate_hook_on, hex_namespace
+from xrpl.wallet import Wallet
 
 from testing_config import BaseTestConfig
+from xls_playground.models.hooks import build_hook, prepare_hook, set_hook
 
 # XRPL
 # -----------------------------------------------------------------------------
 
-import os
-import binascii
-
-# xrpl
-from xrpl.core.binarycodec import encode
-from xrpl.clients import WebsocketClient
-from xrpl.wallet import Wallet
-from xrpl.transaction import (
-    submit_transaction,
-    sign,
-)
-from xrpl.ledger import get_fee_estimate, get_network_id
-from xrpl.utils import calculate_hook_on, hex_namespace
-
-from xls_playground.models.hooks import build_hook, prepare_hook, set_hook
 
 # INSTALLING
 # -----------------------------------------------------------------------------
@@ -55,22 +54,36 @@ class TestXlsHooks(BaseTestConfig):
             namespace: str = hex_namespace("starter")
 
             # Hook Object
-            hook = build_hook(binary, 1, hook_on, 0, namespace)
+            hook = Hook(
+                create_code=binary,
+                hook_on=hook_on,
+                flags=1,
+                hook_api_version=0,
+                hook_namespace=namespace,
+            )
 
             # Set Hook
-            prepared_tx = prepare_hook(
-                client, client.network_id, wallet.classic_address, [hook]
+            hook_transaction = SetHook(
+                account=wallet.classic_address,
+                hooks=[hook],
             )
 
             # Estimate Fee
-            tx_blob = encode(prepared_tx.to_xrpl())
+            tx_blob = encode(hook_transaction.to_xrpl())
             estimated_fee = get_fee_estimate(client, tx_blob)
 
             # Sign Tx
-            signed_tx = set_hook(
-                client, client.network_id, wallet, estimated_fee, [hook]
+            hook_transaction = SetHook(
+                account=wallet.classic_address,
+                fee=estimated_fee,
+                hooks=[hook],
+            )
+            hook_signed_tx = safe_sign_and_autofill_transaction(
+                transaction=hook_transaction,
+                wallet=wallet,
+                client=client,
             )
 
             # Submit Tx
-            response = submit_transaction(signed_tx, client)
+            response = submit_transaction(hook_signed_tx, client)
             cls.assertEqual(response.result["engine_result"], "tesSUCCESS")

@@ -7,10 +7,10 @@
     "sync-xrpl": "yarn add ~/projects/xrpl-labs/xrpl.js/packages/xrpl",
     "sync": "yarn run sync-binary && yarn run sync-xrpl",
     "build": "tsc",
-    "sync:build": "yarn run sync && tsc",
+    "build:sync": "yarn run sync && tsc",
     "dev": "ts-node src/index.ts",
     "test": "yarn run build && jest --detectOpenHandles",
-    "sync:test": "yarn run sync:build && jest --detectOpenHandles"
+    "test:sync": "yarn run sync:build && jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +29,6 @@
     "ripple-binary-codec": "/Users/dustedfloor/projects/xrpl-labs/xrpl.js/packages/ripple-binary-codec",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "xrpl": "/Users/dustedfloor/projects/xrpl-labs/xrpl.js/packages/xrpl"
+    "xrpl": "~/projects/xrpl-labs/xrpl.js/packages/xrpl"
   }
 }

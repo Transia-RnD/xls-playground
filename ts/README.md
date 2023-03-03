@@ -2,7 +2,7 @@
 
 In XRPL.js
 
-`yarn run build`
+`yarn run sync` syncs the current xrpl.js library
 
 > Dependencies must be built before main (xrpl)
 
@@ -14,5 +14,6 @@ Build Main Dependency
 
 `yarn add ~/projects/xrpl-labs/xrpl.js/packages/xrpl`
 
-`ts-node src/index.ts`
+Run single test
 
+`yarn run test test/networkID.test.ts`

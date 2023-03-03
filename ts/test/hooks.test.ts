@@ -20,7 +20,7 @@ import { encode } from "ripple-binary-codec";
 
 const fs = require("fs");
 
-describe("test hook binary", function () {
+describe("test hooks", function () {
   it("all", async function () {
     const WSS_RPC_URL = "wss://hooks-testnet-v3.xrpl-labs.com";
     const fromAcct = "rfdxDZK1cW6YBLcbx2BrtQUivjBXe5hqeB";
