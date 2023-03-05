@@ -1,0 +1,41 @@
+{
+  "LockingChain": {
+    "Endpoint": {
+      "IP": "0.0.0.0",
+      "Port": 6005
+    },
+    "TxnSubmit": {
+      "ShouldSubmit": true,
+      "SigningKeySeed": "sn6c7MaGqyuM2DE27nQqjGLuXRUox",
+      "SigningKeyType": "ed25519",
+      "SubmittingAccount": "rGkq2pT7PvumNJwRu7wFuNa291LYiWKaEw"
+    },
+    "RewardAccount": "rGkq2pT7PvumNJwRu7wFuNa291LYiWKaEw"
+  },
+  "IssuingChain": {
+    "Endpoint": {
+      "IP": "0.0.0.0",
+      "Port": 6007
+    },
+    "TxnSubmit": {
+      "ShouldSubmit": true,
+      "SigningKeySeed": "sn6c7MaGqyuM2DE27nQqjGLuXRUox",
+      "SigningKeyType": "ed25519",
+      "SubmittingAccount": "rGkq2pT7PvumNJwRu7wFuNa291LYiWKaEw"
+    },
+    "RewardAccount": "rGkq2pT7PvumNJwRu7wFuNa291LYiWKaEw"
+  },
+  "RPCEndpoint": {
+    "IP": "0.0.0.0",
+    "Port": 6011
+  },
+  "DBDir": "/config/db",
+  "SigningKeySeed": "snSHkPACYwbsmEvPmuFsYKaK9dATr",
+  "SigningKeyType": "ed25519",
+  "XChainBridge": {
+    "LockingChainDoor": "rJDp8voeFLyijTcZxVHKpaUC9BVj9tWvBx",
+    "LockingChainIssue": "XRP",
+    "IssuingChainDoor": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+    "IssuingChainIssue": "XRP"
+  }
+}

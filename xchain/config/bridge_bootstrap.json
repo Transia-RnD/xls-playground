@@ -1,0 +1,11 @@
+{
+  "locking_chain_door": {
+    "id": "rJDp8voeFLyijTcZxVHKpaUC9BVj9tWvBx",
+    "seed": "ssYCR32soyoCqe9iEDtdSaCPz1q3S"
+  },
+  "issuing_chain_door": {
+    "id": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+    "seed": "snoPBrXtMeMyMHUVTgbuqAfg1SUTb"
+  },
+  "witness_reward_accounts": ["rEnq4fmbtNd1SUDQKYHQ97agf2z1rN24gN", "rGkq2pT7PvumNJwRu7wFuNa291LYiWKaEw", "rGEUKYGNK65bFRNnGiE5XJgBs8ue46xZo5"]
+}

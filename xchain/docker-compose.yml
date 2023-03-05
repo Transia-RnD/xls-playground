@@ -1,0 +1,90 @@
+# docker compose -f docker-compose.yml up --build --force-recreate -d
+version: '3.4'
+services:
+  issuing_chain:
+    build:
+      dockerfile: rippled.dockerfile
+      target: issuing
+      args:
+        DIR: issuing_chain
+    container_name: issuing-chain
+    ports:
+      - "5006:5006"
+      - "6007:6007"
+      - "6008:6008"
+      - "51236:51236"
+    networks:
+      - witnessd
+  issuing_explorer:
+    image: gcr.io/metaxrplorer/explorer:latest
+    container_name: issuing-explorer
+    environment:
+      - VUE_APP_WSS_ENDPOINT=ws://0.0.0.0:6008
+    ports:
+      - "3001:3001"
+  locking_chain:
+    build:
+      dockerfile: rippled.dockerfile
+      target: locking
+      args:
+        DIR: locking_chain
+    container_name: locking-chain
+    ports:
+      - "5005:5005"
+      - "6006:6006"
+      - "6005:6005"
+      - "51235:51235"
+    networks:
+      - witnessd
+  locking_explorer:
+    image: gcr.io/metaxrplorer/explorer:latest
+    container_name: locking-explorer
+    environment:
+      - VUE_APP_WSS_ENDPOINT=ws://0.0.0.0:6005
+    ports:
+      - "3000:3000"
+  witness0:
+    tty: true
+    build:
+      dockerfile: witnessd.dockerfile
+      args:
+        DIR: witness0
+        PORT: 6010
+    container_name: witness0
+    ports:
+      - "6010:6010"
+    volumes:
+      - ./config/witness0/db:/config/db
+    networks:
+      - witnessd
+  witness1:
+    tty: true
+    build:
+      dockerfile: witnessd.dockerfile
+      args:
+        DIR: witness1
+        PORT: 6011
+    container_name: witness1
+    ports:
+      - "6011:6011"
+    volumes:
+      - ./config/witness1/db:/config/db
+    networks:
+      - witnessd
+  witness2:
+    tty: true
+    build:
+      dockerfile: witnessd.dockerfile
+      args:
+        DIR: witness2
+        PORT: 6012
+    container_name: witness2
+    ports:
+      - "6012:6012"
+    volumes:
+      - ./config/witness2/db:/config/db
+    networks:
+      - witnessd
+networks:
+  witnessd:
+    driver: bridge

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rippledconfig=`/bin/cat /config/rippled.cfg 2>/dev/null | wc -l`
+
+mkdir -p /config
+
+if [[ "$rippledconfig" -gt "0" ]]; then
+
+    echo "Existing rippled config at host /config/, using them."
+    mkdir -p /etc/opt/ripple
+
+    /bin/cat /config/rippled.cfg > /etc/opt/ripple/rippled.cfg
+
+fi
+
+# Start rippled, Passthrough other arguments
+exec /app/rippled --conf /etc/opt/ripple/rippled.cfg "$@"
