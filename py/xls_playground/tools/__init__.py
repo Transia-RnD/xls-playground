@@ -10,6 +10,7 @@ from xrpl.models.requests.ledger_entry import RippleState
 from xrpl.models.amounts.issued_currency_amount import IssuedCurrencyAmount
 from xrpl.models.requests import GenericRequest, LedgerEntry, AccountInfo
 from xrpl.models.transactions import (
+    Transaction,
     Payment,
     TrustSet,
     AccountSet,
@@ -22,6 +23,9 @@ from xrpl.transaction import (
 )
 from xrpl.utils import xrp_to_drops
 from xrpl.wallet import Wallet
+from xrpl.core.addresscodec import decode_classic_address
+
+from xrpl_helpers.sdk.utils import symbol_to_hex
 
 from testing_config import BaseTestConfig
 
@@ -47,7 +51,12 @@ class Account(object):
     account: str
     wallet: Wallet
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str = None, seed: str = None) -> None:
+        if seed:
+            self.wallet = Wallet(seed, 0)
+            self.account = self.wallet.classic_address
+            pass
+
         self.name = name
         if name == 'gw':
             self.wallet = Wallet("sEdSmmFciyvxYaQcdRCv4FhYEJ1aqpn", 0)
@@ -136,16 +145,34 @@ def ic_balance(ctx: WebsocketClient, account: Account, ic: IC) -> float:
     )
     request = LedgerEntry(ripple_state=rs)
     response = ctx.request(request)
-    if "error" in response.result and response.result["error"] == "entryNotFound":
+    if "error" in response.result:
         # print(response.result["error"])
         return 0
-    return float(response.result['node']['Balance']['value'])
+    return abs(float(response.result['node']['Balance']['value']))
 
 
 def balance(ctx: WebsocketClient, account: Account, ic: IC = None) -> float:
     if not ic:
         return xrp_balance(ctx, account)
     return ic_balance(ctx, account, ic)
+
+
+def limit(ctx: WebsocketClient, account: Account, ic: IC) -> float:
+    rs = RippleState(
+        currency=ic.currency,
+        accounts=[
+            account.account,
+            ic.issuer,
+        ],
+    )
+    is_high_limit: bool = decode_classic_address(account.account) > decode_classic_address(ic.issuer)
+    request = LedgerEntry(ripple_state=rs)
+    response = ctx.request(request)
+    if "error" in response.result:
+        # print(response.result["error"])
+        return 0
+    node: Dict[str, Any] = response.result['node']
+    return float(node['HighLimit']['value'] if is_high_limit else node['LowLimit']['value'])
 
 
 def fund(ctx: WebsocketClient, wallet: Wallet, uicx: Union[IC, ICXRP], *accts: Account):
@@ -164,6 +191,9 @@ def fund(ctx: WebsocketClient, wallet: Wallet, uicx: Union[IC, ICXRP], *accts: A
         response = submit_transaction(signed_tx, ctx)
         if "error" in response.result:
             print(response.result["error"])
+        tx_result: str = response.result['engine_result']
+        if tx_result != 'tesSUCCESS':
+            print(f'FUND FAILED: {tx_result}')
         tx_hash: str = response.result["tx_json"]["hash"]
         wait_for_result(ctx, tx_hash)
 
@@ -184,12 +214,14 @@ def pay(ctx: WebsocketClient, uicx: Union[IC, ICXRP], signer: Account, *accts: A
         response = submit_transaction(signed_tx, ctx)
         if "error" in response.result:
             print(response.result["error"])
+        tx_result: str = response.result['engine_result']
+        if tx_result != 'tesSUCCESS':
+            print(f'PAY FAILED: {tx_result}')
         tx_hash: str = response.result["tx_json"]["hash"]
         wait_for_result(ctx, tx_hash)
 
 
 def trust(ctx: WebsocketClient, uicx: Union[IC, ICXRP], *accts: Account):
-    print(uicx.amount)
     for acct in accts:
         prepared_tx = TrustSet(
             account=acct.account,
@@ -203,11 +235,14 @@ def trust(ctx: WebsocketClient, uicx: Union[IC, ICXRP], *accts: Account):
         response = submit_transaction(signed_tx, ctx)
         if "error" in response.result:
             print(response.result["error"])
+        tx_result: str = response.result['engine_result']
+        if tx_result != 'tesSUCCESS':
+            print(f'TRUST FAILED: {tx_result}')
         tx_hash: str = response.result["tx_json"]["hash"]
         wait_for_result(ctx, tx_hash)
 
 
-def account_set(ctx: WebsocketClient, account: Account,):
+def account_set(ctx: WebsocketClient, account: Account):
     tx = AccountSet(
         account=account.account,
         transfer_rate=0,
@@ -223,5 +258,28 @@ def account_set(ctx: WebsocketClient, account: Account,):
     response = submit_transaction(signed_tx, ctx)
     if "error" in response.result:
         print(response.result["error"])
+    tx_result: str = response.result['engine_result']
+    if tx_result != 'tesSUCCESS':
+        print(f'FUND FAILED: {tx_result}')
     tx_hash: str = response.result["tx_json"]["hash"]
     wait_for_result(ctx, tx_hash)
+
+
+def rpc(ctx: WebsocketClient, account: Account, txjson: Dict[str, Any]):
+    signed_tx = safe_sign_and_autofill_transaction(
+        transaction=Transaction.from_xrpl(txjson),
+        wallet=account.wallet,
+        client=ctx,
+    )
+    response = submit_transaction(signed_tx, ctx)
+    if "error" in response.result:
+        print(response.result["error"])
+    tx_result: str = response.result['engine_result']
+    if tx_result != 'tesSUCCESS':
+        print(f'FUND FAILED: {tx_result}')
+    tx_hash: str = response.result["tx_json"]["hash"]
+    wait_for_result(ctx, tx_hash)
+
+
+def close(ctx: WebsocketClient):
+    ctx.request(LEDGER_ACCEPT_REQUEST)
