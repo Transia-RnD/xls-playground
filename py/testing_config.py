@@ -18,8 +18,6 @@ class BaseTestConfig(TestCase):
 
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)))
     WSS_RPC_URL = "ws://127.0.0.1:6006"
-    LOCK_RPC_URL = "ws://127.0.0.1:6006"
-    ISSUE_RPC_URL = "ws://127.0.0.1:6008"
 
     @classmethod
     def setUpUnit(cls):
@@ -30,12 +28,6 @@ class BaseTestConfig(TestCase):
     def setUpClient(cls):
         cls.client = WebsocketClient(cls.WSS_RPC_URL)
         cls.client.open()
-
-        cls.issue_client = WebsocketClient(cls.LOCK_RPC_URL)
-        cls.issue_client.open()
-
-        cls.lock_client = WebsocketClient(cls.ISSUE_RPC_URL)
-        cls.lock_client.open()
 
     @classmethod
     def setUpIntegration(cls):

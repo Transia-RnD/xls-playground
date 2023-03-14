@@ -55,6 +55,15 @@ class TestXls38(BaseTestConfig):
 
     def setUp(cls):
 
+        LOCK_RPC_URL = "ws://127.0.0.1:6006"
+        ISSUE_RPC_URL = "ws://127.0.0.1:6008"
+
+        # cls.issue_client = WebsocketClient(cls.LOCK_RPC_URL)
+        # cls.issue_client.open()
+
+        # cls.lock_client = WebsocketClient(cls.ISSUE_RPC_URL)
+        # cls.lock_client.open()
+
         lock_door = Account("alice")
         issue_door = Account("bob")
         lock_user = Account("dave")
