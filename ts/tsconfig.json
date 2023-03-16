@@ -1,51 +1,36 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "strictNullChecks": false,
-    "module": "commonjs",
-    "target": "es2017",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": false, // For components CamelCase
-    "resolveJsonModule": true,
-    "importHelpers": true,
-    "skipDefaultLibCheck": true,
-    "jsx": "preserve",
-    "lib": [
-      "es2015",
-      "es2016",
-      "es2017"
-    ],
-    "baseUrl": "src",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": false,
-    "strict": true,
-    "noEmit": true,
-    "incremental": true,
-    "isolatedModules": true
-  },
-  "ts-node": {
-    // Tell ts-node CLI to install the --loader automatically
-      "esm": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.tsx",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-  ],
-  "types": [
-    "typePatches"
-  ]
+     "jsx": "react",
+     "composite": true,
+     "module": "commonjs",
+     "moduleResolution": "node",
+     "sourceMap": true,
+     "strict": true,
+     "pretty": true,
+     "target": "es6",
+     "outDir": "./dist/npm",
+     "declaration": true,
+     "declarationMap": true,
+     "strictNullChecks": true,
+     "noImplicitAny": false,
+     "noUnusedLocals": true,
+     "removeComments": true,
+     "preserveConstEnums": false,
+     "esModuleInterop": true,
+     "suppressImplicitAnyIndexErrors": false,
+     "resolveJsonModule": true,
+     "preserveSymlinks": true,
+   },
+   "include": [
+     "src/**/*.ts",
+     "src/**/*.tsx",
+     "src/**/*.json"
+   ],
+   "exclude": [
+     "node_modules",
+     "**/*.test.tsx",
+     "**/*.test.ts",
+     "**/*.spec.ts",
+     "dist"
+   ]
 }

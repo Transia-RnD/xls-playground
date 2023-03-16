@@ -15,9 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.3.4",
     "@types/jest": "^29.4.0",
-    "@types/mocha": "^10.0.1",
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -25,10 +23,9 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "chai": "^4.3.7",
     "ripple-binary-codec": "/Users/dustedfloor/projects/xrpl-labs/xrpl.js/packages/ripple-binary-codec",
     "ts-jest": "^29.0.5",
-    "ts-node": "^10.9.1",
-    "xrpl": "~/projects/xrpl-labs/xrpl.js/packages/xrpl"
+    "xrpl": "~/projects/xrpl-labs/xrpl.js/packages/xrpl",
+    "xrpl-helpers": "/Users/dustedfloor/projects/xrpl-labs/xrpl-helpers/ts"
   }
 }
