@@ -1,0 +1,13 @@
+# docker compose -f docker-compose.yml up --build --force-recreate -d
+version: '3.4'
+services:
+  node1:
+    image: gcr.io/metaxrplorer/explorer:latest
+    container_name: node1-explorer
+    environment:
+      - VUE_APP_WSS_ENDPOINT=ws://0.0.0.0:6006
+    ports:
+      - "3000:3000"
+networks:
+  witnessd:
+    driver: bridge
