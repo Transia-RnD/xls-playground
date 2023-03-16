@@ -49,3 +49,5 @@ yarn run test test/networkID.test.ts
 #### XRPLD
 
 `cd xrpld && ./standalone.sh`
+
+> You may need to force kill rippled. sudo lsof -i :5005 && sudo kill -9 PID
