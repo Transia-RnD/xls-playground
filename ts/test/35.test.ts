@@ -10,8 +10,6 @@ import { encode } from "ripple-binary-codec";
 // ----------------------------------------------------------------------------
 // yarn add "https://github.com/Transia-RnD/xrpl.js.git#uritoken" --save
 
-const fs = require("fs");
-
 describe("test 35", function () {
   it("mint", async function () {
     const WSS_RPC_URL = "ws://127.0.0.1:6006";
