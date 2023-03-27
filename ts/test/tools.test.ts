@@ -2,7 +2,6 @@
 // ---------------------------------------------------------------------------
 
 import { Client, Wallet } from "xrpl";
-// import { encode } from "ripple-binary-codec";
 
 const {
   Account,
@@ -16,7 +15,6 @@ const {
 
 describe("test tools", function () {
   it("all", async function () {
-    // jest.setTimeout(200000);
     const WSS_RPC_URL = "ws://127.0.0.1:6006";
     const client = new Client(WSS_RPC_URL);
     const wallet = Wallet.fromSeed("snoPBrXtMeMyMHUVTgbuqAfg1SUTb");
