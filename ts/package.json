@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "sync-binary": "yarn add ~/projects/xrpl-labs/xrpl.js/packages/ripple-binary-codec",
     "sync-xrpl": "yarn add ~/projects/xrpl-labs/xrpl.js/packages/xrpl",
     "sync": "yarn run sync-binary && yarn run sync-xrpl",
     "build": "tsc",
@@ -23,9 +22,9 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "ripple-binary-codec": "/Users/dustedfloor/projects/xrpl-labs/xrpl.js/packages/ripple-binary-codec",
+    "chai": "^4.3.7",
     "ts-jest": "^29.0.5",
-    "xrpl": "~/projects/xrpl-labs/xrpl.js/packages/xrpl",
+    "xrpl": "/Users/dustedfloor/projects/xrpl-labs/xrpl.js/packages/xrpl",
     "xrpl-helpers": "/Users/dustedfloor/projects/xrpl-labs/xrpl-helpers/ts"
   }
 }
