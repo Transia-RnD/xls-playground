@@ -3,11 +3,11 @@ import { assert } from "chai";
 // XRPL
 // ---------------------------------------------------------------------------
 
-import { Client } from "xrpl";
+import { Client } from "@transia/xrpl";
 
 // INSTALL
 // ----------------------------------------------------------------------------
-// yarn add "https://github.com/Transia-RnD/xrpl.js.git#network-id" --save
+// yarn add @transia/xrpl
 
 describe("test network id", function () {
   it("all", async function () {

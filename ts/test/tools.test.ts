@@ -1,7 +1,7 @@
 // XRPL
 // ---------------------------------------------------------------------------
 
-import { Client, Wallet } from "xrpl";
+import { Client, Wallet } from "@transia/xrpl";
 
 const {
   Account,
@@ -12,6 +12,8 @@ const {
   pay,
   balance,
 } = require("../dist/npm/src");
+
+import { sign } from "@transia/ripple-keypairs";
 
 describe("test tools", function () {
   it("all", async function () {

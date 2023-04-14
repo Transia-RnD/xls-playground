@@ -12,11 +12,11 @@ import {
   AccountInfoRequest,
   TxResponse,
   convertStringToHex,
-} from "xrpl";
+} from "@transia/xrpl";
 // import { symbolToHex } from "xrpl-helpers";
-import { IssuedCurrencyAmount } from "xrpl/dist/npm/models/common";
-import { RippleState } from "xrpl/dist/npm/models/ledger";
-import { BaseRequest } from "xrpl/dist/npm/models/methods/baseMethod";
+import { IssuedCurrencyAmount } from "@transia/xrpl/dist/npm/models/common";
+import { RippleState } from "@transia/xrpl/dist/npm/models/ledger";
+import { BaseRequest } from "@transia/xrpl/dist/npm/models/methods/baseMethod";
 
 const LEDGER_ACCEPT_REQUEST = { command: "ledger_accept" } as BaseRequest;
 

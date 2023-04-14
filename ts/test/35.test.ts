@@ -3,12 +3,17 @@ import { assert } from "chai";
 // XRPL
 // ---------------------------------------------------------------------------
 
-import { Client, Wallet, URITokenMint, convertStringToHex } from "xrpl";
-import { encode } from "ripple-binary-codec";
+import {
+  Client,
+  Wallet,
+  URITokenMint,
+  convertStringToHex,
+} from "@transia/xrpl";
+import { encode } from "@transia/ripple-binary-codec";
 
 // INSTALL
 // ----------------------------------------------------------------------------
-// yarn add "https://github.com/Transia-RnD/xrpl.js.git#uritoken" --save
+// yarn add @transia/xrpl
 
 describe("test 35", function () {
   it("mint", async function () {
