@@ -1,5 +1,7 @@
 # Private Network
 
+> DO NOT RUN THIS IN PRODUCTION. THIS IS ONLY FOR TESTING.
+
 ### Init python env (xrpl-py is only dependency)
 
 `mkvirtualenv ripplednet && pip3 install -r requirements.txt`
