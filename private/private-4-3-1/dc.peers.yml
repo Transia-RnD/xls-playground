@@ -1,0 +1,20 @@
+# docker compose -f docker-compose.yml up --build --force-recreate -d
+version: '3.4'
+services:
+  node4:
+    build:
+      context: node4
+      dockerfile: Dockerfile
+    container_name: node4-peer
+    ports:
+      - "5008:5008"
+      - "6009:6009"
+      - "51238:51238"
+    volumes:
+      # - ./node4/keystore:/var/lib/rippled/keystore
+      - ./node4/db:/var/lib/rippled/db
+    networks:
+      - rippled-vls
+networks:
+  rippled-vls:
+    driver: bridge
