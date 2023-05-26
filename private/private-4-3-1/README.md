@@ -15,10 +15,10 @@
 
 ### Start Peers
 
+> You need to wait till the validators are synced. On initial this takes seconds, when retesting it may take more time.
+
 1. `./start_peers.sh`
 2. `python3 report.py`
-
-> You need to wait till the validators are synced. On initial this takes seconds, when retesting it may take more time.
 
 TODO: DA add sync script from "the lab" or recreate delay until validation.
 
